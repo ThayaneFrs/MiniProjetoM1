@@ -9,11 +9,16 @@
 //Adicione um botão “Remover” ao lado de cada tarefa exibida.
 //Ao clicar, a tarefa deve ser removida da tela e do localStorage.
 //Use filter() para remover a tarefa correta do array salvo.
+//Novo Commit
+//Implemente um campo de busca que permita filtrar as tarefas conforme o usuário digita.
+//Ao digitar no campo, use um for ou filter() para exibir apenas as tarefas que contêm o texto buscado.
+
+
 
 const form = document.querySelector('#todo-form');
 const input = document.querySelector('#todo-input');
 const list = document.querySelector('#todo-list');
-
+const searchInput = document.querySelector('#search');
 
 let tarefas = [];
 
@@ -67,6 +72,21 @@ form.addEventListener('submit', (event) => {
   adicionarTarefa(tarefa);
   input.value = '';
 });
+
+searchInput.addEventListener('input', () => {
+  const termo = searchInput.value.toLowerCase();
+  filtrarTarefas(termo);
+});
+
+const filtrarTarefas = (termo) => {
+  list.innerHTML = '';
+
+  const tarefasFiltradas = tarefas.filter(tarefa =>
+    tarefa.toLowerCase().includes(termo)
+  );
+
+  tarefasFiltradas.forEach(adicionarTarefaAoDOM);
+};
 
 
 carregarTarefas();
